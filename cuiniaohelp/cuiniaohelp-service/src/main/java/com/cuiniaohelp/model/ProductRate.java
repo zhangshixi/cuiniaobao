@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Data
 public class ProductRate {
 
-    private Long id;
+    private Long productRateId;
     private Byte sex;
     private Integer age;
     private Integer payPeriod;

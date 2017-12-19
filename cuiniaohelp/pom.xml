@@ -16,6 +16,7 @@
 
     <modules>
         <module>cuiniaohelp-service</module>
+        <module>cuiniaohelp-ui</module>
     </modules>
 
     <properties>

@@ -15,8 +15,8 @@ public class Product {
     private Long productId;
     private String productName;
     private String productDesc;
-    private String buyCode;
     private String buyUrl;
+    private String buyCode;
 
     private Company company;
     private ProductType productType;

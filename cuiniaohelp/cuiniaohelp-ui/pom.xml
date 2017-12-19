@@ -10,9 +10,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cuiniaohelp-service</artifactId>
+    <artifactId>cuiniaohelp-ui</artifactId>
     <packaging>jar</packaging>
-    <name>cuiniaohelp-service</name>
+    <name>cuiniaohelp-ui</name>
     <description>common micro service starter</description>
 
     <properties>

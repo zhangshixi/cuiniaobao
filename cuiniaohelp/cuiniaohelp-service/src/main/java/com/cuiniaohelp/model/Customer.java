@@ -10,10 +10,10 @@ import lombok.Data;
 @Data
 public class Customer {
 
-    private Long id;
-    private String name;
-    private String phone;
-    private String email;
+    private Long customerId;
+    private String customerName;
+    private String customerPhone;
+    private String customerEmail;
     private String username;
     private String password;
 

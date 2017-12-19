@@ -14,12 +14,12 @@ public class Policy {
 
     private Long policyId;
     private BigDecimal policyAmount;
-    private Integer period;
-    private Integer payPeriod;
+    private Integer paymentPeriod;
+    private Integer insuredPeriod;
     private String policyDesc;
 
+    private Plan plan;
     private Insured insured;
     private Product product;
-    private Plan plan;
 
 }

@@ -11,8 +11,8 @@ import lombok.Data;
 public class Company {
 
     private Long companyId;
-    private String name;
-    private String phone;
-    private String site;
+    private String companyName;
+    private String companyPhone;
+    private String companySite;
 
 }

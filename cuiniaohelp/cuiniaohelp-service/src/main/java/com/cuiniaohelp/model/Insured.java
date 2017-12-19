@@ -12,11 +12,11 @@ import java.util.Date;
 @Data
 public class Insured {
 
-    private Long id;
-    private String name;
-    private Byte sex;
-    private Date birthday;
-    private String phone;
+    private Long insuredId;
+    private String insuredName;
+    private Byte insuredSex;
+    private Date insuredBirthday;
+    private String insuredPhone;
     private Byte cidType;
     private String cidNum;
 
