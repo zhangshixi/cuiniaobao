@@ -1,12 +1,18 @@
 package com.cuiniaohelp.model;
 
+import lombok.Data;
+
 /**
- * 
- * 
  * Created: 2017-12-18 23:53:56
- * @version 1.0.0
+ *
  * @author  Michael.Zhang
  */
+@Data
 public class Company {
-    
+
+    private Long companyId;
+    private String name;
+    private String phone;
+    private String site;
+
 }
