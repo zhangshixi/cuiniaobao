@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cuiniaohelp.dao.AdminMapper">
+<mapper namespace="com.cuiniaobao.api.dao.AdminMapper">
 
-    <resultMap id="BaseResultMap" type="com.cuiniaohelp.model.Admin">
+    <resultMap id="BaseResultMap" type="com.cuiniaobao.api.model.Admin">
         <id property="id" column="id" />
         <result property="topic" column="topic" />
         <result property="businessId" column="business_id" />
