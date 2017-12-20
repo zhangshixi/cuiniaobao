@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuiniaohelp.dao.AdminMapper">
+
+    <resultMap id="BaseResultMap" type="com.cuiniaohelp.model.Admin">
+        <id property="id" column="id" />
+        <result property="topic" column="topic" />
+        <result property="businessId" column="business_id" />
+        <result property="head" column="head" />
+        <result property="body" column="body" />
+        <result property="failType" column="fail_type" />
+        <result property="statusId" column="status_id" />
+        <result property="retryTimes" column="retry_times" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ppdai.debt.commons.model.debt.DebtFailMessages">
+        INSERT INTO debt_fail_messages(
+            topic, business_id, head, body, fail_type
+        ) VALUE (
+            #{topic}, #{businessId}, #{head}, #{body}, #{failType}
+        )
+    </insert>
+
+    <update id="updateForSendSucceed" parameterType="BigInteger">
+        UPDATE debt_fail_messages SET status_id = 1 WHERE id = #{_parameter}
+    </update>
+
+    <update id="updateForSendFailed" parameterType="BigInteger">
+        UPDATE debt_fail_messages SET retry_times = retry_times + 1 WHERE id = #{_parameter}
+    </update>
+
+    <select id="selectFailedMessageList" resultMap="BaseResultMap">
+        SELECT id, topic, business_id, head, body, fail_type, status_id, retry_times
+        FROM debt_fail_messages
+        WHERE isactive = 1 AND status_id = 0
+        <if test="topic != null">
+            AND TOPIC = #{topic}
+        </if>
+        <if test="failType != null">
+            AND fail_type = #{failType}
+        </if>
+    </select>
+
+    <select id="selectRetriedFailedMessageList" resultMap="BaseResultMap">
+        SELECT id, topic, business_id, head, body, fail_type, status_id, retry_times
+        FROM debt_fail_messages
+        WHERE isactive = 1 AND status_id = 0
+        <if test="topic != null">
+            AND TOPIC = #{topic}
+        </if>
+        <if test="failType != null">
+            AND fail_type = #{failType}
+        </if>
+        <if test="retryTimes != null">
+            AND retry_times > #{retryTimes}
+        </if>
+    </select>
+
+</mapper>

@@ -14,10 +14,10 @@ public class Insured {
 
     private Long insuredId;
     private String insuredName;
-    private Byte insuredSex;
+    private Boolean insuredSex;
     private Date insuredBirthday;
     private String insuredPhone;
-    private Byte cidType;
+    private Short cidType;
     private String cidNum;
 
 }

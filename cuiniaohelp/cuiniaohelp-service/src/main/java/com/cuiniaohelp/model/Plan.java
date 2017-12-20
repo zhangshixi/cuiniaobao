@@ -18,6 +18,7 @@ public class Plan {
     private Date planDate;
     private Short planStatus;
 
+    private Demand demand;
     private Customer customer;
     private List<Policy> policyList;
     private Admin createAdmin;
