@@ -19,7 +19,7 @@
     <description>Demo parent project for Spring Boot</description>
 
 	<modules>
-        <module>cuiniaohelp</module>
+        <module>cuiniaobao-api</module>
     </modules>
 	
     <properties>
