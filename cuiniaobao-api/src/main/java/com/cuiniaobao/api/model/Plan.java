@@ -15,13 +15,13 @@ public class Plan {
 
     private Long planId;
     private String planName;
-    private Date planDate;
     private Short planStatus;
+    private Date createDate;
 
     private Demand demand;
     private Customer customer;
     private List<Policy> policyList;
-    private Admin createAdmin;
+    private Agent agent;
 
     public Map<Insured, List<Policy>> getInsuredPolicyListMap() {
         if (CollectionUtils.isEmpty(getPolicyList())) {

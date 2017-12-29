@@ -18,5 +18,6 @@ public class Demand {
     private Byte demandStatus;
 
     private Customer customer;
+    private Agent agent;
 
 }

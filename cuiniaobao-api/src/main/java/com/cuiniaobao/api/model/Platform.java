@@ -14,11 +14,11 @@ public class Platform {
 
     private Long platformId;
     private String platformName;
-    private String platformUrl;
+    private String platformSite;
     private String platformDesc;
+    private String platformPhone;
     private Date joinDate;
     private Date quitDate;
-    private String manageName;
     private Short platformStatus;
 
 }

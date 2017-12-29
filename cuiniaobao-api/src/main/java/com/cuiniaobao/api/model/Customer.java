@@ -2,6 +2,8 @@ package com.cuiniaobao.api.model;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * Created: 2017-12-19 00:03:35
  *
@@ -16,5 +18,6 @@ public class Customer {
     private String customerEmail;
     private String username;
     private String password;
+    private Date registeDate;
 
 }
