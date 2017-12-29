@@ -13,7 +13,7 @@
         <result property="retryTimes" column="retry_times" />
     </resultMap>
 
-    <insert id="insert" parameterType="com.ppdai.debt.commons.model.debt.DebtFailMessages">
+    <insert id="insert" parameterType="com.cuiniaobao.api.model.Admin">
         INSERT INTO debt_fail_messages(
             topic, business_id, head, body, fail_type
         ) VALUE (

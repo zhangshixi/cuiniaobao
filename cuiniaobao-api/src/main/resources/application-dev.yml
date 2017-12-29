@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    name: default
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cuiniaobao
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-seize: 10
+    max-actice: 20
+    min-idle: 1
+    max-wait: 60000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 1 FROM DUAL
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: true
+    max-pool-prepared-statement-per-connection-size: 20
+    filters: stat
+
+mybatis:
+  config-location:
+  mapper-locations: classpath:mapper/*.xml
+

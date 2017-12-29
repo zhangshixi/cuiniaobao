@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 public class ProductRate {
 
     private Long productRateId;
-    private Byte sex;
+    private Short sex;
     private Integer age;
-    private Integer payPeriod;
-    private Integer period;
-    private BigDecimal premium;
+    private Integer insuredPeriod;
+    private Integer paymentPeriod;
+    private BigDecimal price;
 
     private Product product;
 

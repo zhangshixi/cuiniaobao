@@ -3,6 +3,7 @@ package com.cuiniaobao.api.service.impl;
 import com.cuiniaobao.api.model.Customer;
 import com.cuiniaobao.api.model.Insured;
 import com.cuiniaobao.api.service.CustomerService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author  Michael.Zhang
  */
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Override

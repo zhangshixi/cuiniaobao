@@ -15,8 +15,8 @@ public class Policy {
 
     private Long policyId;
     private BigDecimal policyAmount;
-    private Integer paymentPeriod;
     private Integer insuredPeriod;
+    private Integer paymentPeriod;
     private String policyDesc;
     private Short createType;
     private Date incomeDate;
