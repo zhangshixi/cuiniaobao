@@ -1,6 +1,6 @@
 package com.cuiniaobao.api.service.impl;
 
-import com.cuiniaobao.api.dao.PlanMapper;
+import com.cuiniaobao.api.mapper.PlanMapper;
 import com.cuiniaobao.api.model.Plan;
 import com.cuiniaobao.api.model.Policy;
 import com.cuiniaobao.api.service.InsuredService;

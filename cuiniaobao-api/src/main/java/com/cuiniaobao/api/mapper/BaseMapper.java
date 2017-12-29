@@ -1,4 +1,4 @@
-package com.cuiniaobao.api.dao;
+package com.cuiniaobao.api.mapper;
 
 import java.util.List;
 

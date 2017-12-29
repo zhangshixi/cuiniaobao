@@ -1,6 +1,6 @@
 package com.cuiniaobao.api.service.impl;
 
-import com.cuiniaobao.api.dao.PolicyMapper;
+import com.cuiniaobao.api.mapper.PolicyMapper;
 import com.cuiniaobao.api.model.Policy;
 import com.cuiniaobao.api.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;

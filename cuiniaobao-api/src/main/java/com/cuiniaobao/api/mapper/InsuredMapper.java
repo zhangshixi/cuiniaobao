@@ -1,4 +1,4 @@
-package com.cuiniaobao.api.dao;
+package com.cuiniaobao.api.mapper;
 
 import com.cuiniaobao.api.model.Insured;
 import org.apache.ibatis.annotations.Mapper;
