@@ -16,5 +16,4 @@
 *.iml
 
 .idea/*
-build/
 target/
