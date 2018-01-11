@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface PolicyService {
 
+    void add(Policy policy);
+
     List<Policy> queryByPlanId(Long planId);
     
 }

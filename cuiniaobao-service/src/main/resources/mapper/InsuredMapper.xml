@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuiniaobao.service.mapper.InsuredMapper">
+
+    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Insured">
+        <id property="insuredId" column="insured_id" />
+        <result property="insuredName" column="insured_name" />
+        <result property="insuredSex" column="insured_sex" />
+        <result property="insuredBirthday" column="insured_birthday" />
+        <result property="customerPhone" column="customer_phone" />
+        <result property="customerEmail" column="customer_email" />
+        <result property="cidType" column="cid_type" />
+        <result property="cidNumber" column="cid_number" />
+        <result property="priority" column="priority" />
+        <result property="customerId" column="customer_id" />
+        <result property="totalPolicyNumber" column="total_policy_number" />
+        <result property="totalPolicyAmount" column="total_policy_amount" />
+    </resultMap>
+
+    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Insured">
+        INSERT INTO insured(
+            insured_name,
+            insured_sex,
+            insured_birthday,
+            customer_phone,
+            customer_email,
+            cid_type,
+            cid_number,
+            total_policy_number,
+            total_policy_amount
+        ) VALUES
+        <foreach collection="List" item="insured" open="(" close=")" separator=",">
+            #{insuredName},
+            #{insuredSex},
+            #{insuredBirthday},
+            #{customerPhone},
+            #{customerEmail},
+            #{cidType},
+            #{cidNumber},
+            #{totalPolicyNumber},
+            #{totalPolicyAmount}
+        </foreach>
+    </insert>
+
+    <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Insured">
+        UPDATE insured
+        SET
+        <if test="insuredName != null">insured_name = #{insuredName},</if>
+        <if test="insuredSex != null">insured_sex = #{insuredSex},</if>
+        <if test="insuredBirthday != null">insured_birthday = #{insuredBirthday} </if>
+        WHERE insured_id = #{insuredId}
+    </update>
+
+    <select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            insured_id,
+            insured_name,
+            insured_sex,
+            insured_birthday,
+            customer_phone,
+            customer_email,
+            cid_type,
+            cid_number,
+            customer_id,
+            total_policy_number,
+            total_policy_amount
+        FROM insured
+        WHERE insured_id = #{_parameter} AND is_active = 1
+    </select>
+
+    <select id="selectByCustomerId" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            insured_id,
+            insured_name,
+            insured_sex,
+            insured_birthday,
+            customer_phone,
+            customer_email,
+            cid_type,
+            cid_number,
+            customer_id,
+            total_policy_number,
+            total_policy_amount
+        FROM insured
+        WHERE customer_id = #{_parameter} AND is_active = 1
+        ORDER BY priority ASC
+    </select>
+
+</mapper>

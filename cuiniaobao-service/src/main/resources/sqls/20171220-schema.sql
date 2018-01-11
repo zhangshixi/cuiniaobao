@@ -107,6 +107,8 @@ CREATE TABLE insured (
   cid_type SMALLINT COMMENT '证件类型：0-未知; 1-;',
   cid_number VARCHAR(64) COMMENT '证件号码',
   create_date DATETIME NOT NULL COMMENT '创建时间',
+  total_policy_number SMALLINT NOT NULL DEFAULT 0 COMMENT '总保单数量',
+  total_policy_amount DECIMAL(10,2) NOT NULL DEFAULT 0 COMMENT '总保障金额',
 
   is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
   insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
@@ -152,6 +154,30 @@ CREATE TABLE platform (
   KEY idx_insert_time (insert_time),
   KEY idx_update_time (update_time)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='代理平台表';
+
+-- plan_policy
+CREATE TABLE plan_policy (
+  plan_policy_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '方案保单ID',
+  plan_id BIGINT UNSIGNED NOT NULL COMMENT '所属方案ID',
+  insured_id BIGINT UNSIGNED NOT NULL COMMENT '所属被保人ID',
+  product_id BIGINT UNSIGNED NOT NULL COMMENT '所属产品ID',
+  insured_period SMALLINT NOT NULL COMMENT '保障期限',
+  policy_amount DECIMAL(10,2) NOT NULL DEFAULT 0 COMMENT '保单金额',
+  payment_period SMALLINT NOT NULL COMMENT '缴费期限',
+  period_amount DECIMAL(10,2) NOT NULL DEFAULT 0 COMMENT '每期金额',
+  policy_desc VARCHAR(256) COMMENT '保单描述',
+  income_date DATETIME COMMENT '收入时间',
+  income_amount DECIMAL(10,2) NOT NULL DEFAULT 0 COMMENT '收入金额',
+  income_platform_id VARCHAR(64) COMMENT '收入来源平台ID',
+  policy_status SMALLINT NOT NULL DEFAULT 0 COMMENT '保单状态：0-新建; 1-已购买; 2-已添加;',
+
+  is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
+  insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
+  update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (plan_policy_id),
+  KEY idx_insert_time (insert_time),
+  KEY idx_update_time (update_time)
+) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='方案保单表';
 
 -- policy
 CREATE TABLE policy (

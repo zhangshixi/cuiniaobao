@@ -9,8 +9,10 @@ import com.cuiniaobao.service.model.Plan;
  */
 public interface PlanService {
 
+    void generateByInsured(Long customerId);
+
     Plan findById(Long planId);
 
     Plan findDetailsById(Long planId);
-    
+
 }

@@ -6,14 +6,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created: 2017-12-18 23:58:02
+ * Created: 2018-01-11 14:03:43
  *
  * @author  Michael.Zhang
  */
 @Data
-public class Policy {
+public class PlanPolicy {
 
-    private Long policyId;
+    private Long planPolicyId;
     private BigDecimal policyAmount;
     private Integer insuredPeriod;
     private Integer paymentPeriod;
@@ -23,7 +23,7 @@ public class Policy {
     private BigDecimal incomeAmount;
     private Platform incomePlatform;
 
-    private Customer customer;
+    private Plan plan;
     private Insured insured;
     private Product product;
 

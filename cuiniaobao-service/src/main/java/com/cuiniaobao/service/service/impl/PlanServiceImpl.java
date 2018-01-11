@@ -28,6 +28,11 @@ public class PlanServiceImpl implements PlanService {
     private InsuredService insuredService;
 
     @Override
+    public void generateByInsured(Long customerId) {
+
+    }
+
+    @Override
     public Plan findById(Long planId) {
         return planMapper.selectById(planId);
     }
