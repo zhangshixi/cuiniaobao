@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuiniaobao.service.mapper.AgentMapper">
+
+    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Agent">
+        <id property="agentId" column="agent_id" />
+        <result property="agentName" column="agent_name" />
+        <result property="agentPhone" column="agent_phone" />
+        <result property="agentEmail" column="agent_email" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="cidType" column="cid_type" />
+        <result property="cidNum" column="cid_num" />
+        <result property="cidPicture" column="cid_picture" />
+        <result property="createDate" column="create_date" />
+        <result property="isLocked" column="is_locked" />
+        <result property="lastLockDate" column="last_lock_date" />
+        <result property="loginTimes" column="login_times" />
+        <result property="lastLoginDate" column="last_login_date" />
+        <result property="lastLoginIp" column="last_login_ip" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.cuiniaobao.service.model.Agent" useGeneratedKeys="true" keyProperty="agentId">
+        INSERT INTO agent(
+            agent_name,
+            agent_phone,
+            agent_email,
+            username,
+            password,
+            cid_type,
+            cid_num,
+            cid_picture,
+            create_date
+        ) VALUES (
+            #{agentName},
+            #{agentPhone},
+            #{agentEmail},
+            #{username},
+            #{password},
+            #{cidType},
+            #{cidNum},
+            #{cidPicture},
+            NOW()
+        )
+    </insert>
+
+    <update id="deleteById" parameterType="Long">
+        UPDATE agent
+        SET is_active = 0
+        WHERE agent_id = #{_parameter}
+    </update>
+
+    <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Agent">
+        UPDATE agent
+        <set>
+            <if test="agentName != null">agent_name = #{agentName},</if>
+            <if test="agentPhone != null">agent_phone = #{agentPhone},</if>
+            <if test="agentEmail != null">agent_email = #{agentEmail},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="cidType != null">cid_type = #{cidType},</if>
+            <if test="cidNum != null">cid_num = #{cidNum},</if>
+            <if test="cidPicture != null">cid_picture = #{cidPicture},</if>
+        </set>
+        WHERE agent_id = #{agentId}
+    </update>
+
+    <update id="updateLockOrNot" parameterType="com.cuiniaobao.service.model.Agent">
+        UPDATE agent
+        SET is_locked = #{isLocked},
+            last_lock_date = NOW()
+        WHERE agent_id = #{agentId}
+    </update>
+
+    <update id="updateLogin" parameterType="com.cuiniaobao.service.model.Agent">
+        UPDATE agent
+        SET login_times = login_times + 1,
+            last_login_date = NOW(),
+            last_login_ip = #{lastLoginIp}
+        WHERE agent_id = #{agentId}
+    </update>
+
+    <select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            agent_id,
+            agent_name,
+            agent_phone,
+            agent_email,
+            username,
+            password,
+            cid_type,
+            cid_num,
+            cid_picture,
+            create_date,
+            is_locked,
+            last_login_date,
+            login_times,
+            last_login_date,
+            last_login_ip
+        FROM agent
+        WHERE agent_id = #{_parameter} AND is_active = 1
+    </select>
+
+    <select id="selectByLoginName" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            agent_id,
+            password,
+            is_locked
+        FROM agent
+        WHERE (username = #{_parameter} OR agent_phone = #{_parameter} OR agent_email = #{_parameter}) AND is_active = 1
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            agent_id,
+            agent_name,
+            agent_phone,
+            agent_email,
+            username,
+            password,
+            cid_type,
+            cid_num,
+            cid_picture,
+            create_date,
+            is_locked,
+            last_login_date,
+            login_times,
+            last_login_date,
+            last_login_ip
+        FROM agent
+        WHERE is_active = 1
+    </select>
+
+</mapper>

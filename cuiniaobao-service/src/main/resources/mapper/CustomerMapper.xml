@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cuiniaobao.service.mapper.InsuredMapper">
+<mapper namespace="com.cuiniaobao.service.mapper.CustomerMapper">
 
-    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Insured">
-        <id property="insuredId" column="insured_id" />
-        <result property="insuredName" column="insured_name" />
-        <result property="insuredSex" column="insured_sex" />
-        <result property="insuredBirthday" column="insured_birthday" />
+    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Customer">
+        <id property="customerId" column="customer_id" />
+        <result property="customerName" column="customer_name" />
+        <result property="customerSex" column="customer_sex" />
+        <result property="customerBirthday" column="customer_birthday" />
         <result property="customerPhone" column="customer_phone" />
         <result property="customerEmail" column="customer_email" />
         <result property="cidType" column="cid_type" />
@@ -17,11 +17,11 @@
         <result property="totalPolicyAmount" column="total_policy_amount" />
     </resultMap>
 
-    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Insured" useGeneratedKeys="true" keyProperty="insuredId">
-        INSERT INTO insured(
-            insured_name,
-            insured_sex,
-            insured_birthday,
+    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Customer" useGeneratedKeys="true" keyProperty="customerId">
+        INSERT INTO customer(
+            customer_name,
+            customer_sex,
+            customer_birthday,
             customer_phone,
             customer_email,
             cid_type,
@@ -29,10 +29,10 @@
             total_policy_number,
             total_policy_amount
         ) VALUES
-        <foreach collection="List" item="insured" open="(" close=")" separator=",">
-            #{insuredName},
-            #{insuredSex},
-            #{insuredBirthday},
+        <foreach collection="List" item="customer" open="(" close=")" separator=",">
+            #{customerName},
+            #{customerSex},
+            #{customerBirthday},
             #{customerPhone},
             #{customerEmail},
             #{cidType},
@@ -42,21 +42,21 @@
         </foreach>
     </insert>
 
-    <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Insured">
-        UPDATE insured
+    <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Customer">
+        UPDATE customer
         SET
-        <if test="insuredName != null">insured_name = #{insuredName},</if>
-        <if test="insuredSex != null">insured_sex = #{insuredSex},</if>
-        <if test="insuredBirthday != null">insured_birthday = #{insuredBirthday} </if>
-        WHERE insured_id = #{insuredId}
+        <if test="customerName != null">customer_name = #{customerName},</if>
+        <if test="customerSex != null">customer_sex = #{customerSex},</if>
+        <if test="customerBirthday != null">customer_birthday = #{customerBirthday} </if>
+        WHERE customer_id = #{customerId}
     </update>
 
     <select id="selectById" parameterType="Long" resultMap="BaseResultMap">
         SELECT
-            insured_id,
-            insured_name,
-            insured_sex,
-            insured_birthday,
+            customer_id,
+            customer_name,
+            customer_sex,
+            customer_birthday,
             customer_phone,
             customer_email,
             cid_type,
@@ -64,16 +64,16 @@
             customer_id,
             total_policy_number,
             total_policy_amount
-        FROM insured
-        WHERE insured_id = #{_parameter} AND is_active = 1
+        FROM customer
+        WHERE customer_id = #{_parameter} AND is_active = 1
     </select>
 
     <select id="selectByCustomerId" parameterType="Long" resultMap="BaseResultMap">
         SELECT
-            insured_id,
-            insured_name,
-            insured_sex,
-            insured_birthday,
+            customer_id,
+            customer_name,
+            customer_sex,
+            customer_birthday,
             customer_phone,
             customer_email,
             cid_type,
@@ -81,7 +81,7 @@
             customer_id,
             total_policy_number,
             total_policy_amount
-        FROM insured
+        FROM customer
         WHERE customer_id = #{_parameter} AND is_active = 1
         ORDER BY priority ASC
     </select>

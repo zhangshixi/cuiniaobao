@@ -17,7 +17,7 @@
         <result property="totalPolicyAmount" column="total_policy_amount" />
     </resultMap>
 
-    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Insured" useGeneratedKeys="true" keyProperty="insuredId">
+    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Insured">
         INSERT INTO insured(
             insured_name,
             insured_sex,

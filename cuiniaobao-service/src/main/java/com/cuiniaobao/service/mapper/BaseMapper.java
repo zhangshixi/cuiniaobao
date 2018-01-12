@@ -19,6 +19,7 @@ public interface BaseMapper<T> {
     int updateSelect(T instance);
 
     T selectById(Long id);
-    List<T> batchSelectByIdList(List<Long> idList);
+    List<T> selectByIdList(List<Long> idList);
+    List<T> selectByPage();
 
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cuiniaobao.service.mapper.InsuredMapper">
+<mapper namespace="com.cuiniaobao.service.mapper.ProductRateMapper">
 
-    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Insured">
+    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.ProductRate">
         <id property="insuredId" column="insured_id" />
         <result property="insuredName" column="insured_name" />
         <result property="insuredSex" column="insured_sex" />
@@ -17,7 +17,7 @@
         <result property="totalPolicyAmount" column="total_policy_amount" />
     </resultMap>
 
-    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Insured" useGeneratedKeys="true" keyProperty="insuredId">
+    <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Insured">
         INSERT INTO insured(
             insured_name,
             insured_sex,

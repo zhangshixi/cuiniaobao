@@ -14,9 +14,9 @@ public class Platform {
 
     private Long platformId;
     private String platformName;
+    private String platformPhone;
     private String platformSite;
     private String platformDesc;
-    private String platformPhone;
     private Date joinDate;
     private Date quitDate;
     private Short platformStatus;

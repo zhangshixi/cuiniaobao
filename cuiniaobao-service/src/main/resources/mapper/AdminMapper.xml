@@ -3,57 +3,113 @@
 <mapper namespace="com.cuiniaobao.service.mapper.AdminMapper">
 
     <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Admin">
-        <id property="id" column="id" />
-        <result property="topic" column="topic" />
-        <result property="businessId" column="business_id" />
-        <result property="head" column="head" />
-        <result property="body" column="body" />
-        <result property="failType" column="fail_type" />
-        <result property="statusId" column="status_id" />
-        <result property="retryTimes" column="retry_times" />
+        <id property="adminId" column="admin_id" />
+        <result property="adminName" column="admin_name" />
+        <result property="adminPhone" column="admin_phone" />
+        <result property="adminEmail" column="admin_email" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="createDate" column="create_date" />
+        <result property="isLocked" column="is_locked" />
+        <result property="lastLockDate" column="last_lock_date" />
+        <result property="loginTimes" column="login_times" />
+        <result property="lastLoginDate" column="last_login_date" />
+        <result property="lastLoginIp" column="last_login_ip" />
     </resultMap>
 
-    <insert id="insert" parameterType="com.cuiniaobao.service.model.Admin">
-        INSERT INTO debt_fail_messages(
-            topic, business_id, head, body, fail_type
-        ) VALUE (
-            #{topic}, #{businessId}, #{head}, #{body}, #{failType}
+    <insert id="insert" parameterType="com.cuiniaobao.service.model.Admin" useGeneratedKeys="true" keyProperty="adminId">
+        INSERT INTO admin(
+            admin_name,
+            admin_phone,
+            admin_email,
+            username,
+            password,
+            create_date
+        ) VALUES (
+            #{adminName},
+            #{adminPhone},
+            #{adminEmail},
+            #{username},
+            #{password},
+            NOW()
         )
     </insert>
 
-    <update id="updateForSendSucceed" parameterType="BigInteger">
-        UPDATE debt_fail_messages SET status_id = 1 WHERE id = #{_parameter}
+    <update id="deleteById" parameterType="Long">
+        UPDATE admin
+        SET is_active = 0
+        WHERE admin_id = #{_parameter}
     </update>
 
-    <update id="updateForSendFailed" parameterType="BigInteger">
-        UPDATE debt_fail_messages SET retry_times = retry_times + 1 WHERE id = #{_parameter}
+    <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Admin">
+        UPDATE admin
+        <set>
+            <if test="adminName != null">admin_name = #{adminName},</if>
+            <if test="adminPhone != null">admin_phone = #{adminPhone},</if>
+            <if test="adminEmail != null">admin_email = #{adminEmail},</if>
+            <if test="password != null">password = #{password},</if>
+        </set>
+        WHERE admin_id = #{adminId}
     </update>
 
-    <select id="selectFailedMessageList" resultMap="BaseResultMap">
-        SELECT id, topic, business_id, head, body, fail_type, status_id, retry_times
-        FROM debt_fail_messages
-        WHERE isactive = 1 AND status_id = 0
-        <if test="topic != null">
-            AND TOPIC = #{topic}
-        </if>
-        <if test="failType != null">
-            AND fail_type = #{failType}
-        </if>
+    <update id="updateLockOrNot" parameterType="com.cuiniaobao.service.model.Admin">
+        UPDATE admin
+        SET is_locked = #{isLocked},
+            last_lock_date = NOW()
+        WHERE admin_id = #{adminId}
+    </update>
+
+    <update id="updateLogin" parameterType="com.cuiniaobao.service.model.Admin">
+        UPDATE admin
+        SET login_times = login_times + 1,
+            last_login_date = NOW(),
+            last_login_ip = #{lastLoginIp}
+        WHERE admin_id = #{adminId}
+    </update>
+
+    <select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            admin_id,
+            admin_name,
+            admin_phone,
+            admin_email,
+            username,
+            password,
+            create_date,
+            is_locked,
+            last_login_date,
+            login_times,
+            last_login_date,
+            last_login_ip
+        FROM admin
+        WHERE admin_id = #{_parameter} AND is_active = 1
     </select>
 
-    <select id="selectRetriedFailedMessageList" resultMap="BaseResultMap">
-        SELECT id, topic, business_id, head, body, fail_type, status_id, retry_times
-        FROM debt_fail_messages
-        WHERE isactive = 1 AND status_id = 0
-        <if test="topic != null">
-            AND TOPIC = #{topic}
-        </if>
-        <if test="failType != null">
-            AND fail_type = #{failType}
-        </if>
-        <if test="retryTimes != null">
-            AND retry_times > #{retryTimes}
-        </if>
+    <select id="selectByLoginName" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            admin_id,
+            password,
+            is_locked
+        FROM admin
+        WHERE (username = #{_parameter} OR admin_phone = #{_parameter} OR admin_email = #{_parameter}) AND is_active = 1
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            admin_id,
+            admin_name,
+            admin_phone,
+            admin_email,
+            username,
+            password,
+            create_date,
+            is_locked,
+            last_login_date,
+            login_times,
+            last_login_date,
+            last_login_ip
+        FROM admin
+        WHERE is_active = 1
     </select>
 
 </mapper>

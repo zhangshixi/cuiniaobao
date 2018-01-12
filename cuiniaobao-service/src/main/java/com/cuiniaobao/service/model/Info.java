@@ -10,14 +10,12 @@ import java.util.Date;
  * @author  Michael.Zhang
  */
 @Data
-public class Demand {
+public class Info {
 
-    private Long demandId;
+    private Long informationId;
     private String sourceId;
     private Date createDate;
-    private Byte demandStatus;
 
     private Customer customer;
-    private Agent agent;
 
 }

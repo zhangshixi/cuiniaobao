@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuiniaobao.service.mapper.PlatformMapper">
+
+    <resultMap id="BaseResultMap" type="com.cuiniaobao.service.model.Platform">
+        <id property="platformId" column="platform_id" />
+        <result property="platformName" column="platform_name" />
+        <result property="platformPhone" column="platform_phone" />
+        <result property="platformSite" column="platform_site" />
+        <result property="platformDesc" column="platform_desc" />
+        <result property="joinDate" column="join_date" />
+        <result property="quitDate" column="quit_date" />
+        <result property="platformStatus" column="platform_status" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.cuiniaobao.service.model.Platform" useGeneratedKeys="true" keyProperty="platformId">
+        INSERT INTO platform(
+            platform_name,
+            platform_phone,
+            platform_site,
+            platform_desc,
+            join_date,
+            quit_date,
+            platform_status
+        ) VALUES (
+            #{platformName},
+            #{platformPhone},
+            #{platformSite},
+            #{platformDesc},
+            #{joinDate},
+            #{quitDate},
+            #{platformStatus}
+        )
+    </insert>
+
+    <update id="deleteById" parameterType="Long">
+        UPDATE platform
+        SET is_active = 0
+        WHERE platform_id = #{_parameter}
+    </update>
+
+    <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Platform">
+        UPDATE platform
+        SET
+            <if test="platformName != null">platform_name = #{platformName},</if>
+            <if test="platformPhone != null">platform_phone = #{platformPhone},</if>
+            <if test="platformSite != null">platform_site = #{platformSite},</if>
+            <if test="platformDesc != null">platform_desc = #{platformDesc},</if>
+            <if test="joinDate != null">join_date = #{joinDate},</if>
+            <if test="quitDate != null">quit_date = #{quitDate},</if>
+            <if test="platformStatus != null">platform_status = #{platformStatus} </if>
+        WHERE platform_id = #{platformId}
+    </update>
+
+    <select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT
+            platform_id,
+            platform_name,
+            platform_phone,
+            platform_site,
+            platform_desc,
+            join_date,
+            quit_date,
+            platform_status
+        FROM platform
+        WHERE platform_id = #{_parameter} AND is_active = 1
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+            platform_id,
+            platform_name,
+            platform_phone,
+            platform_site,
+            platform_desc,
+            join_date,
+            quit_date,
+            platform_status
+        FROM platform
+        WHERE is_active = 1
+    </select>
+
+</mapper>

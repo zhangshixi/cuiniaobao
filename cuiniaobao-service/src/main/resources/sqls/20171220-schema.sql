@@ -5,17 +5,24 @@ CREATE DATABASE IF NOT EXISTS cuiniaobao DEFAULT CHARSET utf8 COLLATE utf8_gener
 CREATE TABLE admin (
   admin_id BIGINT UNSIGNED NOT NULL COMMENT '管理员ID',
   admin_name VARCHAR(16) NOT NULL COMMENT '管理员姓名',
+  admin_phone VARCHAR(16) NOT NULL COMMENT '管理员手机',
+  admin_email VARCHAR(64) NOT NULL COMMENT '管理员邮箱',
   username VARCHAR(16) NOT NULL COMMENT '登录名称',
   password VARCHAR(64) NOT NULL COMMENT '登录密码',
-  registe_date DATETIME NOT NULL COMMENT '注册时间',
-  login_times INT NOT NULL COMMENT '登录次数',
-  last_login_date DATETIME NOT NULL COMMENT '最后登录时间',
-  last_login_ip VARCHAR(16) NOT NULL COMMENT '最后登录IP',
+  create_date DATETIME NOT NULL COMMENT '创建时间',
+  is_locked BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否被锁定',
+  last_lock_date DATETIME COMMENT '最后锁定/解锁时间',
+  login_times INT NOT NULL COMMENT '总登录次数',
+  last_login_date DATETIME COMMENT '最后登录时间',
+  last_login_ip VARCHAR(16) COMMENT '最后登录IP',
 
   is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
   insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (admin_id),
+  UNIQUE KEY unique_admin_phone (admin_phone),
+  UNIQUE KEY unique_admin_email (admin_email),
+  UNIQUE KEY unique_username (username),
   KEY idx_insert_time (insert_time),
   KEY idx_update_time (update_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员表';
@@ -28,15 +35,23 @@ CREATE TABLE agent (
   agent_email VARCHAR(64) NOT NULL COMMENT '代理人邮箱',
   username VARCHAR(16) NOT NULL COMMENT '登录名称',
   password VARCHAR(64) NOT NULL COMMENT '登录密码',
-  registe_date DATETIME NOT NULL COMMENT '注册时间',
-  login_times INT NOT NULL COMMENT '登录次数',
-  last_login_date DATETIME NOT NULL COMMENT '最后登录时间',
-  last_login_ip VARCHAR(16) NOT NULL COMMENT '最后登录IP',
+  cid_type SMALLINT NOT NULL COMMENT '证件类型',
+  cid_num VARCHAR(64) NOT NULL COMMENT '证件号码',
+  cid_picture VARCHAR(256) COMMENT '证件照片',
+  create_date DATETIME NOT NULL COMMENT '创建时间',
+  is_locked BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否被锁定',
+  last_lock_date DATETIME COMMENT '最后锁定/解锁时间',
+  login_times INT NOT NULL DEFAULT 0 COMMENT '登录次数',
+  last_login_date DATETIME COMMENT '最后登录时间',
+  last_login_ip VARCHAR(16) COMMENT '最后登录IP',
 
   is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
   insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (agent_id),
+  UNIQUE KEY unique_agent_phone (agent_phone),
+  UNIQUE KEY unique_agent_email (agent_email),
+  UNIQUE KEY unique_username (username),
   KEY idx_insert_time (insert_time),
   KEY idx_update_time (update_time)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='代理人表';
@@ -76,14 +91,12 @@ CREATE TABLE customer (
   KEY idx_update_time (update_time)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='客户信息表';
 
--- demand
-CREATE TABLE demand (
-  demand_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '需求ID',
+-- info
+CREATE TABLE info (
+  info_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '信息ID',
   customer_id BIGINT UNSIGNED NOT NULL COMMENT '所属客户ID',
-  agent_id BIGINT UNSIGNED NOT NULL COMMENT '代理人ID',
-  demand_source VARCHAR(64) NOT NULL COMMENT '需求来源',
-  demand_status SMALLINT NOT NULL DEFAULT 0 COMMENT '需求状态：0-新建; 10-已分配; 20-已规划;',
-  demand_remark VARCHAR(64) COMMENT '需求备注',
+  info_status SMALLINT NOT NULL DEFAULT 0 COMMENT '状态：0-新建; 10-已分配; 20-已规划;',
+  info_remark VARCHAR(64) COMMENT '信息备注',
   create_date DATETIME NOT NULL COMMENT '创建时间',
   assign_date DATETIME DEFAULT NULL COMMENT '分配时间',
 
@@ -93,7 +106,7 @@ CREATE TABLE demand (
   PRIMARY KEY (demand_id),
   KEY idx_insert_time (insert_time),
   KEY idx_update_time (update_time)
-) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='需求信息表';
+) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='客户信息表';
 
 -- insured
 CREATE TABLE insured (

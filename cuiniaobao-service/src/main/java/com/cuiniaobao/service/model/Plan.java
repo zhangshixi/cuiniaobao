@@ -18,7 +18,7 @@ public class Plan {
     private Short planStatus;
     private Date createDate;
 
-    private Demand demand;
+    private Info demand;
     private Customer customer;
     private List<Policy> policyList;
     private Agent agent;
