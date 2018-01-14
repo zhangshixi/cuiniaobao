@@ -1,5 +1,7 @@
 package com.cuiniaobao.service.service.impl;
 
+import com.cuiniaobao.service.event.EventManager;
+import com.cuiniaobao.service.event.InfoCommitEvent;
 import com.cuiniaobao.service.mapper.InfoMapper;
 import com.cuiniaobao.service.model.Info;
 import com.cuiniaobao.service.service.InfoService;
@@ -20,6 +22,7 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public void create(Info info) {
         infoMapper.insert(info);
+        EventManager.post(new InfoCommitEvent(info.getCustomer().getCustomerId()));
     }
 
     @Override

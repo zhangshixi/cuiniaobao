@@ -1,11 +1,8 @@
 package com.cuiniaobao.service.service.impl;
 
 import com.cuiniaobao.service.mapper.PlanMapper;
-import com.cuiniaobao.service.model.Plan;
-import com.cuiniaobao.service.model.Policy;
-import com.cuiniaobao.service.service.InsuredService;
-import com.cuiniaobao.service.service.PlanService;
-import com.cuiniaobao.service.service.PolicyService;
+import com.cuiniaobao.service.model.*;
+import com.cuiniaobao.service.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +23,37 @@ public class PlanServiceImpl implements PlanService {
     private PolicyService policyService;
     @Autowired
     private InsuredService insuredService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private InfoService infoService;
 
     @Override
-    public void generateByInsured(Long customerId) {
+    public void generateByCustomer(Long customerId) {
+        Customer customer = customerService.findById(customerId);
+        if (customer == null) {
+            return;
+        }
+
+        Info info = infoService.findByCustomerId(customerId);
+        if (info == null) {
+            return;
+        }
+
+        List<Insured> insuredList = insuredService.queryByCustomerId(customerId);
+        if (insuredList == null) {
+            return;
+        }
+
+        doGeneratePlan(info, insuredList);
+    }
+
+    private void doGeneratePlan(Info info, List<Insured> insuredList) {
+
+    }
+
+    @Override
+    public void generateByInsured(Long insuredId) {
 
     }
 

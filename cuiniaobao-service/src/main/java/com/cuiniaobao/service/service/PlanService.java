@@ -9,7 +9,9 @@ import com.cuiniaobao.service.model.Plan;
  */
 public interface PlanService {
 
-    void generateByInsured(Long customerId);
+    void generateByCustomer(Long customerId);
+
+    void generateByInsured(Long insuredId);
 
     Plan findById(Long planId);
 

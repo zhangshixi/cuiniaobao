@@ -1,4 +1,4 @@
-package com.cuiniaobao.service.vo;
+package com.cuiniaobao.service.api;
 
 import lombok.Data;
 

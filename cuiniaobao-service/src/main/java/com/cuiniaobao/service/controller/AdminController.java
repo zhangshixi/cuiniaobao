@@ -2,7 +2,7 @@ package com.cuiniaobao.service.controller;
 
 import com.cuiniaobao.service.model.Admin;
 import com.cuiniaobao.service.service.AdminService;
-import com.cuiniaobao.service.vo.LoginRequest;
+import com.cuiniaobao.service.api.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
