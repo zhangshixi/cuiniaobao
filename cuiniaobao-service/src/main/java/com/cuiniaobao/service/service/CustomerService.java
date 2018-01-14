@@ -13,9 +13,13 @@ public interface CustomerService {
 
     void create(Customer customer);
 
+    void removeById(Long customerId);
+
     void modify(Customer customer);
 
-    void removeById(Long customerId);
+    boolean login(String loginName, String password, String lastLoginIp);
+
+    boolean logout(Long agentId);
 
     Customer findById(Long customerId);
 

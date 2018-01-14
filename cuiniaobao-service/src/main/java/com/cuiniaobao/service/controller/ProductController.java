@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @author  Michael.Zhang
  */
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired

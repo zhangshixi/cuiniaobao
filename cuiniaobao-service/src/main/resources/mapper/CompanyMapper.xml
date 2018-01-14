@@ -43,7 +43,7 @@
             <if test="companyPhone != null">company_phone = #{companyPhone},</if>
             <if test="companySite != null">company_site = #{companySite},</if>
             <if test="companyDesc != null">company_desc = #{companyDesc},</if>
-            <if test="priority != null">priority = #{priority},</if>
+            <if test="priority != null">priority = #{priority}</if>
         WHERE company_id = #{companyId}
     </update>
 
@@ -54,7 +54,8 @@
             company_phone,
             company_site,
             company_desc,
-            priority
+            priority,
+            create_date
         FROM company
         WHERE company_id = #{_parameter} AND is_active = 1
     </select>
@@ -65,7 +66,9 @@
             company_name,
             company_phone,
             company_site,
-            company_desc
+            company_desc,
+            priority,
+            create_date
         FROM company
         WHERE is_active = 1
         ORDER BY priority ASC

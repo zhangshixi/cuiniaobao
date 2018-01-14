@@ -47,7 +47,7 @@
             <if test="adminName != null">admin_name = #{adminName},</if>
             <if test="adminPhone != null">admin_phone = #{adminPhone},</if>
             <if test="adminEmail != null">admin_email = #{adminEmail},</if>
-            <if test="password != null">password = #{password},</if>
+            <if test="password != null">password = #{password}</if>
         </set>
         WHERE admin_id = #{adminId}
     </update>

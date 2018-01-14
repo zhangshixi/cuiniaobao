@@ -3,4 +3,5 @@ spring:
     active: dev
 
 logging:
+  level: debug
   file: ./log.log

@@ -6,48 +6,73 @@
         <id property="customerId" column="customer_id" />
         <result property="customerName" column="customer_name" />
         <result property="customerSex" column="customer_sex" />
-        <result property="customerBirthday" column="customer_birthday" />
         <result property="customerPhone" column="customer_phone" />
         <result property="customerEmail" column="customer_email" />
+        <result property="customerBirthday" column="customer_birthday" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
         <result property="cidType" column="cid_type" />
         <result property="cidNumber" column="cid_number" />
-        <result property="priority" column="priority" />
-        <result property="customerId" column="customer_id" />
+        <result property="createDate" column="create_date" />
         <result property="totalPolicyNumber" column="total_policy_number" />
         <result property="totalPolicyAmount" column="total_policy_amount" />
+        <result property="loginTimes" column="login_times" />
+        <result property="lastLoginDate" column="last_login_date" />
+        <result property="lastLoginIp" column="last_login_ip" />
+        <result property="agentId" column="agent_id" />
     </resultMap>
 
     <insert id="batchInsert" parameterType="com.cuiniaobao.service.model.Customer" useGeneratedKeys="true" keyProperty="customerId">
         INSERT INTO customer(
             customer_name,
             customer_sex,
-            customer_birthday,
             customer_phone,
             customer_email,
+            customer_birthday,
+            username,
+            password,
             cid_type,
             cid_number,
+            create_date,
             total_policy_number,
             total_policy_amount
-        ) VALUES
-        <foreach collection="List" item="customer" open="(" close=")" separator=",">
+        ) VALUES (
             #{customerName},
             #{customerSex},
-            #{customerBirthday},
             #{customerPhone},
             #{customerEmail},
+            #{customerBirthday},
+            #{username},
+            #{password},
             #{cidType},
             #{cidNumber},
+            NOW(),
             #{totalPolicyNumber},
             #{totalPolicyAmount}
-        </foreach>
+        )
     </insert>
 
     <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Customer">
         UPDATE customer
         SET
-        <if test="customerName != null">customer_name = #{customerName},</if>
-        <if test="customerSex != null">customer_sex = #{customerSex},</if>
-        <if test="customerBirthday != null">customer_birthday = #{customerBirthday} </if>
+            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="customerSex != null">customer_sex = #{customerSex},</if>
+            <if test="customerPhone != null">customer_phone = #{customerPhone},</if>
+            <if test="customerEmail != null">customer_email = #{customerEmail},</if>
+            <if test="customerBirthday != null">customer_birthday = #{customerBirthday},</if>
+            <if test="cidType != null">cid_type = #{cidType},</if>
+            <if test="cidNumber != null">cid_number = #{cidNumber},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="totalPolicyNumber != null">total_policy_number = #{totalPolicyNumber},</if>
+            <if test="totalPolicyAmount != null">total_policy_amount = #{totalPolicyAmount}</if>
+        WHERE customer_id = #{customerId}
+    </update>
+
+    <update id="updateLogin" parameterType="com.cuiniaobao.service.model.Customer">
+        UPDATE agent
+        SET login_times = login_times + 1,
+            last_login_date = NOW(),
+            last_login_ip = #{lastLoginIp}
         WHERE customer_id = #{customerId}
     </update>
 
@@ -56,34 +81,53 @@
             customer_id,
             customer_name,
             customer_sex,
-            customer_birthday,
             customer_phone,
             customer_email,
+            customer_birthday,
+            username,
+            password,
             cid_type,
             cid_number,
-            customer_id,
+            create_date,
             total_policy_number,
-            total_policy_amount
+            total_policy_amount,
+            login_times,
+            last_login_date,
+            last_login_ip,
+            agent_id
         FROM customer
         WHERE customer_id = #{_parameter} AND is_active = 1
     </select>
 
-    <select id="selectByCustomerId" parameterType="Long" resultMap="BaseResultMap">
+    <select id="selectByLoginName" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            customer_id,
+            password
+        FROM agent
+        WHERE (username = #{_parameter} OR customer_phone = #{_parameter} OR customer_email = #{_parameter}) AND is_active = 1
+    </select>
+
+    <select id="selectByPage" parameterType="Long" resultMap="BaseResultMap">
         SELECT
             customer_id,
             customer_name,
             customer_sex,
-            customer_birthday,
             customer_phone,
             customer_email,
+            customer_birthday,
+            username,
+            password,
             cid_type,
             cid_number,
-            customer_id,
+            create_date,
             total_policy_number,
-            total_policy_amount
+            total_policy_amount,
+            login_times,
+            last_login_date,
+            last_login_ip,
+            agent_id
         FROM customer
         WHERE customer_id = #{_parameter} AND is_active = 1
-        ORDER BY priority ASC
     </select>
 
 </mapper>

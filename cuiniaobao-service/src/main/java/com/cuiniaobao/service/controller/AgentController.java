@@ -18,18 +18,18 @@ public class AgentController {
     @Autowired
     private AgentService agentService;
 
-    @PostMapping("/create")
-    public Object create(@RequestBody Agent agent) {
+    @PostMapping("/register")
+    public Object register(@RequestBody Agent agent) {
         agentService.create(agent);
         return agent.getAgentId();
     }
 
     @DeleteMapping("/removeById")
-    public void remove(@RequestBody Long agentId) {
-        agentService.removeById(agentId);
+    public void remove(@RequestBody Agent agent) {
+        agentService.removeById(agent.getAgentId());
     }
 
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     public void modify(@RequestBody Agent agent) {
         agentService.modify(agent);
     }
@@ -46,23 +46,23 @@ public class AgentController {
         agentService.logout(agentId);
     }
 
-    @PostMapping("/lock")
-    public void lock(@RequestBody Long agentId) {
-        agentService.lockOrNotById(agentId, Boolean.TRUE);
+    @PutMapping("/lockById")
+    public void lock(@RequestBody Agent agent) {
+        agentService.lockOrNotById(agent.getAgentId(), Boolean.TRUE);
     }
 
-    @PostMapping("/unlock")
-    public void unlock(@RequestBody Long agentId) {
-        agentService.lockOrNotById(agentId, Boolean.FALSE);
+    @PostMapping("/unlockById")
+    public void unlock(@RequestBody Agent agent) {
+        agentService.lockOrNotById(agent.getAgentId(), Boolean.FALSE);
     }
 
     @GetMapping("/findById")
-    public Object selectById(@RequestBody Long agentId) {
+    public Object findById(Long agentId) {
         return agentService.findById(agentId);
     }
 
     @GetMapping("/queryAll")
-    public Object selectAll() {
+    public Object queryAll() {
         return agentService.queryAll();
     }
 

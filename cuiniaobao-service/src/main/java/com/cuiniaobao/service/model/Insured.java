@@ -16,8 +16,6 @@ public class Insured {
     private String insuredName;
     private Boolean insuredSex;
     private Date insuredBirthday;
-    private String insuredPhone;
-    private Short cidType;
-    private String cidNum;
+    private Short roleType;
 
 }

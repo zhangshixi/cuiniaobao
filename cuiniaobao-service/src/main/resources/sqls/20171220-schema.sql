@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS cuiniaobao DEFAULT CHARSET utf8 COLLATE utf8_gener
 
 -- admin
 CREATE TABLE admin (
-  admin_id BIGINT UNSIGNED NOT NULL COMMENT '管理员ID',
+  admin_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
   admin_name VARCHAR(16) NOT NULL COMMENT '管理员姓名',
   admin_phone VARCHAR(16) NOT NULL COMMENT '管理员手机',
   admin_email VARCHAR(64) NOT NULL COMMENT '管理员邮箱',
@@ -12,17 +12,17 @@ CREATE TABLE admin (
   create_date DATETIME NOT NULL COMMENT '创建时间',
   is_locked BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否被锁定',
   last_lock_date DATETIME COMMENT '最后锁定/解锁时间',
-  login_times INT NOT NULL COMMENT '总登录次数',
+  login_times INT NOT NULL DEFAULT 0 COMMENT '总登录次数',
   last_login_date DATETIME COMMENT '最后登录时间',
   last_login_ip VARCHAR(16) COMMENT '最后登录IP',
 
-  is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
-  insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
-  update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT '是否有效',
+  insert_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
+  update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (admin_id),
-  UNIQUE KEY unique_admin_phone (admin_phone),
-  UNIQUE KEY unique_admin_email (admin_email),
-  UNIQUE KEY unique_username (username),
+  UNIQUE KEY uni_admin_phone (admin_phone),
+  UNIQUE KEY uni_admin_email (admin_email),
+  UNIQUE KEY uni_username (username),
   KEY idx_insert_time (insert_time),
   KEY idx_update_time (update_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员表';
@@ -30,13 +30,13 @@ CREATE TABLE admin (
 -- agent
 CREATE TABLE agent (
   agent_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '代理人ID',
-  agent_name VARCHAR(16) NOT NULL COMMENT '代理人姓名',
+  agent_name VARCHAR(16) COMMENT '代理人姓名',
   agent_phone VARCHAR(16) NOT NULL COMMENT '代理人电话',
-  agent_email VARCHAR(64) NOT NULL COMMENT '代理人邮箱',
+  agent_email VARCHAR(64) COMMENT '代理人邮箱',
   username VARCHAR(16) NOT NULL COMMENT '登录名称',
   password VARCHAR(64) NOT NULL COMMENT '登录密码',
-  cid_type SMALLINT NOT NULL COMMENT '证件类型',
-  cid_num VARCHAR(64) NOT NULL COMMENT '证件号码',
+  cid_type SMALLINT COMMENT '证件类型',
+  cid_number VARCHAR(64) COMMENT '证件号码',
   cid_picture VARCHAR(256) COMMENT '证件照片',
   create_date DATETIME NOT NULL COMMENT '创建时间',
   is_locked BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否被锁定',
@@ -45,13 +45,13 @@ CREATE TABLE agent (
   last_login_date DATETIME COMMENT '最后登录时间',
   last_login_ip VARCHAR(16) COMMENT '最后登录IP',
 
-  is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
+  is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT '是否有效',
   insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (agent_id),
-  UNIQUE KEY unique_agent_phone (agent_phone),
-  UNIQUE KEY unique_agent_email (agent_email),
-  UNIQUE KEY unique_username (username),
+  UNIQUE KEY uni_agent_phone (agent_phone),
+  UNIQUE KEY uni_agent_email (agent_email),
+  UNIQUE KEY uni_username (username),
   KEY idx_insert_time (insert_time),
   KEY idx_update_time (update_time)
 ) ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT='代理人表';
@@ -63,6 +63,7 @@ CREATE TABLE company (
   company_phone VARCHAR(16) NOT NULL COMMENT '公司电话',
   company_site VARCHAR(64) NOT NULL COMMENT '公司网址',
   company_desc VARCHAR(256) COMMENT '公司描述',
+  priority INTEGER NOT NULL DEFAULT 0 COMMENT '优先级',
   create_date DATETIME NOT NULL COMMENT '创建时间',
 
   is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
@@ -76,12 +77,16 @@ CREATE TABLE company (
 -- customer
 CREATE TABLE customer (
   customer_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '客户ID',
-  customer_name VARCHAR(16) NOT NULL COMMENT '客户姓名',
+  customer_name VARCHAR(16) COMMENT '客户姓名',
+  customer_sex SMALLINT NOT NULL DEFAULT 1 COMMENT '客户性别：1-男；2-女',
   customer_phone VARCHAR(16) NOT NULL COMMENT '客户电话',
-  customer_email VARCHAR(64) NOT NULL COMMENT '客户邮箱',
-  username VARCHAR(16) NOT NULL COMMENT '登录名称',
-  password VARCHAR(64) NOT NULL COMMENT '登录密码',
-  registe_date DATETIME NOT NULL COMMENT '注册时间',
+  customer_email VARCHAR(64) COMMENT '客户邮箱',
+  customer_birthday DATE NOT NULL COMMENT '客户生日',
+  username VARCHAR(16) COMMENT '登录名称',
+  password VARCHAR(64) COMMENT '登录密码',
+  cid_type SMALLINT COMMENT '证件类型',
+  cid_number VARCHAR(64) COMMENT '证件号码',
+  create_date DATETIME NOT NULL COMMENT '注册时间',
 
   is_active BOOLEAN NOT NULL DEFAULT 1 COMMENT '是否有效',
   insert_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',

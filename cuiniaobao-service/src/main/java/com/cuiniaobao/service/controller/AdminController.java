@@ -25,11 +25,11 @@ public class AdminController {
     }
 
     @DeleteMapping("/removeById")
-    public void remove(@RequestBody Long adminId) {
-        adminService.removeById(adminId);
+    public void remove(@RequestBody Admin admin) {
+        adminService.removeById(admin.getAdminId());
     }
 
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     public void modify(@RequestBody Admin admin) {
         adminService.modify(admin);
     }
@@ -41,28 +41,28 @@ public class AdminController {
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestBody Long adminId) {
+    public void logout(@RequestBody Admin admin) {
         // TODO: clear session
-        adminService.logout(adminId);
+        adminService.logout(admin.getAdminId());
     }
 
-    @PostMapping("/lock")
-    public void lock(@RequestBody Long adminId) {
-        adminService.lockOrNotById(adminId, Boolean.TRUE);
+    @PutMapping("/lockById")
+    public void lock(@RequestBody Admin admin) {
+        adminService.lockOrNotById(admin.getAdminId(), Boolean.TRUE);
     }
 
-    @PostMapping("/unlock")
-    public void unlock(@RequestBody Long adminId) {
-        adminService.lockOrNotById(adminId, Boolean.FALSE);
+    @PutMapping("/unlockById")
+    public void unlock(@RequestBody Admin admin) {
+        adminService.lockOrNotById(admin.getAdminId(), Boolean.FALSE);
     }
 
     @GetMapping("/findById")
-    public Object selectById(@RequestBody Long adminId) {
+    public Object findById(Long adminId) {
         return adminService.findById(adminId);
     }
 
     @GetMapping("/queryAll")
-    public Object selectAll() {
+    public Object queryAll() {
         return adminService.queryAll();
     }
 

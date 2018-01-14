@@ -24,22 +24,22 @@ public class CompanyController {
     }
 
     @DeleteMapping("/removeById")
-    public void remove(@RequestBody Long companyId) {
-        companyService.removeById(companyId);
+    public void remove(@RequestBody Company company) {
+        companyService.removeById(company.getCompanyId());
     }
 
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     public void update(@RequestBody Company company) {
         companyService.modify(company);
     }
 
     @GetMapping("/findById")
-    public Object selectById(@RequestBody Long companyId) {
+    public Object findById(Long companyId) {
         return companyService.findById(companyId);
     }
 
     @GetMapping("/queryAll")
-    public Object selectAll() {
+    public Object queryAll() {
         return companyService.queryAll();
     }
 

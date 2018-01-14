@@ -12,8 +12,7 @@ import java.util.Date;
 @Data
 public class Info {
 
-    private Long informationId;
-    private String sourceId;
+    private Long infoId;
     private Date createDate;
 
     private Customer customer;

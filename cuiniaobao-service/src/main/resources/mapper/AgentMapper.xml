@@ -10,7 +10,7 @@
         <result property="username" column="username" />
         <result property="password" column="password" />
         <result property="cidType" column="cid_type" />
-        <result property="cidNum" column="cid_num" />
+        <result property="cidNumber" column="cid_number" />
         <result property="cidPicture" column="cid_picture" />
         <result property="createDate" column="create_date" />
         <result property="isLocked" column="is_locked" />
@@ -28,7 +28,7 @@
             username,
             password,
             cid_type,
-            cid_num,
+            cid_number,
             cid_picture,
             create_date
         ) VALUES (
@@ -38,7 +38,7 @@
             #{username},
             #{password},
             #{cidType},
-            #{cidNum},
+            #{cidNumber},
             #{cidPicture},
             NOW()
         )
@@ -58,8 +58,8 @@
             <if test="agentEmail != null">agent_email = #{agentEmail},</if>
             <if test="password != null">password = #{password},</if>
             <if test="cidType != null">cid_type = #{cidType},</if>
-            <if test="cidNum != null">cid_num = #{cidNum},</if>
-            <if test="cidPicture != null">cid_picture = #{cidPicture},</if>
+            <if test="cidNumber != null">cid_number = #{cidNumber},</if>
+            <if test="cidPicture != null">cid_picture = #{cidPicture}</if>
         </set>
         WHERE agent_id = #{agentId}
     </update>
@@ -88,7 +88,7 @@
             username,
             password,
             cid_type,
-            cid_num,
+            cid_number,
             cid_picture,
             create_date,
             is_locked,

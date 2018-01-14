@@ -22,6 +22,8 @@ spring:
     pool-prepared-statements: true
     max-pool-prepared-statement-per-connection-size: 20
     filters: stat
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 
 mybatis:
   config-location:
