@@ -19,6 +19,7 @@ public class Customer {
     private String customerPhone;
     private String customerEmail;
     private Date customerBirthday;
+    private Short jobType;
     private String username;
     private String password;
     private Short cidType;

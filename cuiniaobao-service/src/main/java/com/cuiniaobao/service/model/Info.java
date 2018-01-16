@@ -2,6 +2,7 @@ package com.cuiniaobao.service.model;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -13,6 +14,8 @@ import java.util.Date;
 public class Info {
 
     private Long infoId;
+    private BigDecimal yearlySalaries;
+    private BigDecimal premiumAmount;
     private Date createDate;
 
     private Customer customer;

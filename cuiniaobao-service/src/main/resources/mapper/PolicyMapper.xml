@@ -45,9 +45,9 @@
     <update id="updateSelect" parameterType="com.cuiniaobao.service.model.Policy">
         UPDATE policy
         SET
-        <if test="policyName != null">policy_name = #{policyName},</if>
-        <if test="policySex != null">policy_sex = #{policySex},</if>
-        <if test="policyBirthday != null">policy_birthday = #{policyBirthday} </if>
+            <if test="policyName != null">policy_name = #{policyName},</if>
+            <if test="policySex != null">policy_sex = #{policySex},</if>
+            <if test="policyBirthday != null">policy_birthday = #{policyBirthday} </if>
         WHERE policy_id = #{policyId}
     </update>
 

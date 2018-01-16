@@ -6,15 +6,18 @@
         <id property="productTypeId" column="product_type_id" />
         <result property="productTypeName" column="product_type_name" />
         <result property="priority" column="priority" />
+        <result property="isShow" column="is_show" />
     </resultMap>
 
     <insert id="insert" parameterType="com.cuiniaobao.service.model.ProductType" useGeneratedKeys="true" keyProperty="productTypeId">
         INSERT INTO product_type(
             product_type_name,
-            priority
+            priority,
+            is_show
         ) VALUES (
             #{productTypeName},
-            #{priority}
+            #{priority},
+            #{isShow}
         )
     </insert>
 
@@ -29,6 +32,7 @@
         SET
             <if test="productTypeName != null">product_type_name = #{productTypeName},</if>
             <if test="priority != null">priority = #{priority},</if>
+            <if test="is_show != null">isShow = #{is_show}</if>
         WHERE product_type_id = #{productTypeId}
     </update>
 
@@ -36,18 +40,21 @@
         SELECT
             product_type_id,
             product_type_name,
-            priority
+            priority,
+            is_show
         FROM product_type
         WHERE product_type_id = #{_parameter} AND is_active = 1
     </select>
 
-    <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" parameterType="Boolean" resultMap="BaseResultMap">
         SELECT
             product_type_id,
             product_type_name,
-            priority
+            priority,
+            is_show
         FROM product_type
         WHERE is_active = 1
+            <if test="isShow != null">AND is_show = #{isShow}</if>
         ORDER BY priority ASC
     </select>
 

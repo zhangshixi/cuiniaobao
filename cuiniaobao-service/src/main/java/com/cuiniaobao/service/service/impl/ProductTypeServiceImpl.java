@@ -30,6 +30,19 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
+    public boolean showOrNotById(Long productTypeId, Boolean isShow) {
+        if (productTypeId == null || isShow == null) {
+            return false;
+        }
+        ProductType showProductType = new ProductType();
+        showProductType.setProductTypeId(productTypeId);
+        showProductType.setIsShow(isShow);
+
+        productTypeMapper.updateSelect(showProductType);
+        return true;
+    }
+
+    @Override
     public void removeById(Long productTypeId) {
         productTypeMapper.deleteById(productTypeId);
     }
@@ -40,8 +53,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public List<ProductType> queryAll() {
-        return productTypeMapper.selectAll();
+    public List<ProductType> queryAll(Boolean isShow) {
+        return productTypeMapper.selectAll(isShow);
     }
 
 }

@@ -16,6 +16,8 @@ public class Insured {
     private String insuredName;
     private Boolean insuredSex;
     private Date insuredBirthday;
+    private Short jobType;
     private Short roleType;
+    private Boolean isCustomer;
 
 }

@@ -24,17 +24,17 @@ public class PlatformController {
     }
 
     @DeleteMapping("/removeById")
-    public void remove(@RequestBody Long platformId) {
-        platformService.removeById(platformId);
+    public void remove(@RequestBody Platform platform) {
+        platformService.removeById(platform.getPlatformId());
     }
 
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     public void update(@RequestBody Platform platform) {
         platformService.modify(platform);
     }
 
     @GetMapping("/findById")
-    public Object selectById(@RequestBody Long platformId) {
+    public Object selectById(Long platformId) {
         return platformService.findById(platformId);
     }
 

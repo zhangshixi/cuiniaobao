@@ -1,5 +1,6 @@
 package com.cuiniaobao.service.controller;
 
+import com.cuiniaobao.service.model.Admin;
 import com.cuiniaobao.service.model.ProductType;
 import com.cuiniaobao.service.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +25,33 @@ public class ProductTypeController {
     }
 
     @DeleteMapping("/removeById")
-    public void remove(@RequestBody Long productTypeId) {
-        productTypeService.removeById(productTypeId);
+    public void remove(@RequestBody ProductType productType) {
+        productTypeService.removeById(productType.getProductTypeId());
     }
 
-    @PostMapping("/modify")
+    @PutMapping("/modify")
     public void update(@RequestBody ProductType productType) {
         productTypeService.modify(productType);
     }
+    @PutMapping("/showById")
+    public void lock(@RequestBody ProductType productType) {
+        productTypeService.showOrNotById(productType.getProductTypeId(), Boolean.TRUE);
+    }
+
+    @PutMapping("/hideById")
+    public void unlock(@RequestBody ProductType productType) {
+        productTypeService.showOrNotById(productType.getProductTypeId(), Boolean.FALSE);
+    }
+
 
     @GetMapping("/findById")
-    public Object selectById(@RequestBody Long productTypeId) {
+    public Object selectById(Long productTypeId) {
         return productTypeService.findById(productTypeId);
     }
 
     @GetMapping("/queryAll")
-    public Object selectAll() {
-        return productTypeService.queryAll();
+    public Object selectAll(Boolean isShow) {
+        return productTypeService.queryAll(isShow);
     }
 
 }

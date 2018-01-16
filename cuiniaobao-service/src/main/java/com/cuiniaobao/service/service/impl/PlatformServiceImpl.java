@@ -25,13 +25,13 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     @Override
-    public void modify(Platform platform) {
-        platformMapper.updateSelect(platform);
+    public void removeById(Long platformId) {
+        platformMapper.deleteById(platformId);
     }
 
     @Override
-    public void removeById(Long platformId) {
-        platformMapper.deleteById(platformId);
+    public void modify(Platform platform) {
+        platformMapper.updateSelect(platform);
     }
 
     @Override

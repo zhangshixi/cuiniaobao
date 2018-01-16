@@ -12,5 +12,7 @@ public class ProductType {
 
     private Long productTypeId;
     private String productTypeName;
+    private Integer priority;
+    private Boolean isShow;
 
 }

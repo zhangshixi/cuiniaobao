@@ -13,9 +13,9 @@ public interface PlatformService {
 
     void create(Platform platform);
 
-    void modify(Platform platform);
-
     void removeById(Long platformId);
+
+    void modify(Platform platform);
 
     Platform findById(Long platformId);
 

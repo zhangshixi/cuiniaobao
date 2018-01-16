@@ -2,6 +2,7 @@ package com.cuiniaobao.service.mapper;
 
 import com.cuiniaobao.service.model.ProductType;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ import java.util.List;
 @Mapper
 public interface ProductTypeMapper extends BaseMapper<ProductType> {
 
-    List<ProductType> selectAll();
+    List<ProductType> selectAll(@Param("isShow") Boolean isShow);
 
 }
