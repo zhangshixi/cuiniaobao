@@ -17,6 +17,7 @@ public class Product {
     private String productDesc;
     private String buyUrl;
     private String buyCode;
+    private String evaluateAddress;
 
     private Company company;
     private ProductType productType;

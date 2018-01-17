@@ -22,6 +22,7 @@ public class Plan {
     private Customer customer;
     private List<Policy> policyList;
     private Agent agent;
+    private List<Case> caseList;
 
     public Map<Insured, List<Policy>> getInsuredPolicyListMap() {
         if (CollectionUtils.isEmpty(getPolicyList())) {
